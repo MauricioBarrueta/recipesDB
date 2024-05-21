@@ -1,0 +1,25 @@
+<app-header></app-header>
+
+<div class="areas-container">
+    <span class="title-text">{{title}}</span>
+
+    <!-- Areas List -->
+    <a id="area-link" *ngFor="let flag of countries$" (click)="getMealsByArea(flag)">
+        <img id="flag-img" src="{{flagsPath}}/{{flag}}.png" title="{{flag}}">
+    </a>
+
+    <!-- Meals By Area List -->
+    <a class="back-btn {{backBtnClass}}" [href]="['regions/list']">&#xf060; Volver a la lista de regiones</a>
+    <div class="card meals-cards" *ngFor="let meal of mealsByArea$">
+        <div class="card-image waves-effect">
+            <img [src]="meal.strMealThumb">
+        </div>
+        <div class="card-content">
+            <a class="card-title meal-card-title activator" (click)="getMealDetails(meal.strMeal)">{{meal.strMeal}}</a>
+            <div class="card-subcontent">
+                <p class="area-flag">Región: <img src="{{flagsPath}}/{{country}}.png" title="{{country}}"></p>
+                <span class="card-info">Da clic sobre el nombre para ir a la receta</span>
+            </div>           
+        </div>
+    </div>
+</div>

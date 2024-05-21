@@ -1,0 +1,26 @@
+<app-header></app-header>
+
+<div class="ingredients-container">
+
+    <span class="title-text">{{title}}</span>
+
+    <!-- Angular Material Paginator -->
+    <mat-paginator #paginator style-paginator showFirstLastButtons [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="[25, 40, 50, 80, 100, 120]"></mat-paginator>
+
+    <!-- Ingredients Cards -->
+    <div class="card meals-cards " *ngFor="let ingr of ingredientsList$|slice:(paginator.pageIndex * paginator.pageSize) 
+        : ((paginator.pageIndex + 1) * paginator.pageSize)">
+        <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="{{thumbPath}}/{{ingr.strIngredient}}.png">
+        </div>
+        <div class="card-content">
+            <a class="card-title activator">{{ingr.strIngredient}}</a>
+        </div>  
+        <div class="card-reveal">
+            <p class="card-title"><i class="material-icons right">close</i>{{ingr.strIngredient}}</p>
+            <p class="card-desc" *ngIf="ingr.strDescription !== null; else descNull"><span>Descripción: </span>{{ingr.strDescription}}</p>
+            <ng-template #descNull><p class="card-desc"><span>Descripción: </span>Descripción no disponible...</p></ng-template>
+        </div>     
+    </div>   
+      
+</div>

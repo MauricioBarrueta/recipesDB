@@ -1,0 +1,56 @@
+<!-- Navbar -->
+<div class="sections-navigation-navbar"> 
+    <nav class="navbar navbar-expand-xl bg-body-tertiary">
+        <div class="container-fluid">          
+            <div class="navbar-brand brand-left">
+                <img src="{{imgPath}}icon.png" title="Ícono">
+            </div> 
+            <div class="navbar-brand">
+                <span>Powered by:</span>
+                <a href="https://www.themealdb.com/api.php" target="_blank">
+                    <img src="{{imgPath}}TheMealDB.png" title="Ir al sitio web de la API">
+                </a>
+            </div>         
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>           
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" aria-current="page" [href]="['/']"><img src="{{imgPath}}Recipes.png"> Lista de recetas</a>
+                    </li>                   
+                    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" [href]="['categories/list']"><img src="{{imgPath}}Categories.png"> Recetas por categoría</a>
+                    </li>
+                    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" [href]="['regions/list']"><img src="{{imgPath}}Regions.png"> Recetas por región</a>
+                    </li>
+                    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" [href]="['ingredients/list']"><img src="{{imgPath}}Ingredients.png"> Lista de ingredientes</a>
+                    </li>                                      
+                </ul>
+            </div>                       
+        </div>
+    </nav>
+</div>
+
+<!-- Input -->
+<div class="name-navigation-navbar">
+    <div class="row">
+        <div class="input-field col s12">
+            <form action="" (submit)="setInputValue(inputNameValue)">
+                <input id="mealName" type="text" class="validate" name="mealName" [(ngModel)]="inputNameValue" autocomplete="off">
+                <label for="mealName">&#xf002; &nbsp; Ingresa el nombre del platillo y presiona la tecla 'Enter ↵' para iniciar la búsqueda:</label>
+            </form>            
+        </div>
+    </div>
+</div>
+
+<!-- Navbar Abecedario -->
+<footer>
+    <label for="alphabet-button">Filtrar recetas por orden alfabético:</label>
+    <button class="btn-floating waves-effect waves-light btn" name="alphabet-button" *ngFor="let letter of letters" value="{{letter}}"
+        (click)="setButtonValue(letter)">{{letter}}
+    </button>
+</footer>

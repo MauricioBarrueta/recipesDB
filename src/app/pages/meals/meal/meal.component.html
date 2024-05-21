@@ -1,0 +1,44 @@
+<app-header (inputValue)="getNameValue($event)"></app-header>
+
+<div class="meals-list">
+
+  <!-- Not Found Alert -->
+    <div class="data-not-found {{divStatusClass}}">
+        <span [textContent]="dataStatus"></span>
+        <img src="{{dataNotFound}}" alt="">
+    </div>
+    
+    <span class="title-text">{{title}}
+      <span class="subtitle-text" *ngIf="subtitle.length > 1">{{subtitle}}</span>
+    </span>
+    
+    <!-- Meals Card -->
+    <div class="flip-card" *ngFor="let meal of meal$">
+      <div class="flip-card-inner" >
+          <div class="flip-card-front" >
+            <img [src]="meal.strMealThumb">
+            <div class="flip-card-content">
+                <span class="card-title">{{meal.strMeal}}</span>
+                <div class="card-subcontent">
+                    <p class="meal-area"><span>Receta de origen: </span>{{meal.strArea}}<img class="area-img" src="{{flagsPath}}/{{meal.strArea}}.png" title="{{meal.strArea}}"></p>
+                    <p class="meal-category"><span>Pertenece a la categoría: </span>{{meal.strCategory}}</p>
+                </div>
+            </div>
+          </div>
+          <div class="flip-card-back">
+            <span class="card-title">{{meal.strMeal}}</span>
+            <p class="meal-instructions"><span><img src="{{imgPath}}Instructions.png"> Preparación: </span>{{meal.strInstructions}}</p>
+            <div class="ingredients-container">
+                <span class="ingredients-title"><img src="{{imgPath}}Measures.png"> Ingredientes y medidas:</span>
+                <p *ngFor="let ingredients of ingredients$">• {{ingredients}}</p>
+                <p class="meal-yt-link">Ir al tutorial: <a [href]="meal.strYoutube" target="_blank"><i class="fa-brands fa-youtube"></i></a></p>
+                <div class="meal-links">
+                  <a (click)="getCategoryDetails(meal.strCategory)">Ir a la categoría: <img src="{{imgPath}}Categories.png" alt=""></a>
+                  <a (click)="getAreaDetails(meal.strArea)">Ir a la región: <img src="{{flagsPath}}/{{meal.strArea}}.png"></a>
+              </div> 
+            </div>
+          </div>
+      </div>
+    </div> 
+
+</div>

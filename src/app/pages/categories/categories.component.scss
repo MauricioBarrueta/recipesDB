@@ -1,0 +1,9 @@
+@import url(../../app.component.scss);
+
+.categories-container, .card-content, .card-redirect { 
+    display: flex; align-items: center; justify-content: center; flex-wrap: wrap; flex-direction: row;
+}
+.categories-container {
+    min-height: 70vh; position: relative;
+    padding: 1em; gap: 15px; text-align: center; text-transform: uppercase;  
+}

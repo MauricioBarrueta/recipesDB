@@ -1,0 +1,48 @@
+
+@import url(../../app.component.scss);
+
+.areas-container, .card-content, .card-subcontent {
+    display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 15px;    
+}
+
+.areas-container {
+    min-height: 70vh;  padding: 1em; 
+
+    /* Areas List Buttons */
+    #area-link {
+        cursor: pointer;
+        #flag-img {
+            width: 85px; height: 85px;
+            border: 2px solid var(--eerieBlack);
+            filter: drop-shadow(0 0 5px rgba(37, 36, 34, .75));
+            border-radius: 50px; transition: scale 0.25s;
+            &:hover { scale: 1.1; }
+        }
+    }
+    
+    /* Meals By Area */
+    .meals-cards {
+        width: 275px; height: 350px;        
+        .card-content {
+            padding: 0; flex: 1;
+            background-color: var(--timberwolf);
+            .card-title {
+                width: 100%; background-color: var(--floralWhite);
+                font-size: 16px; text-transform: uppercase; text-align: center; font-weight: bold;
+            }
+            .card-subcontent {
+                text-align: center;
+                .area-flag {
+                    font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
+                    img { 
+                        width: 15px !important; height: 15px !important;
+                        margin-bottom: 2px; 
+                    }
+                }
+                .card-info { 
+                    padding: 0.5rem 0; border-top: 1px dashed var(--eerieBlack);
+                }               
+            }            
+        }
+    }
+}

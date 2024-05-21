@@ -1,0 +1,34 @@
+<app-header></app-header>
+
+<div class="categories-container">
+
+    <span class="title-text">{{title}}</span>
+
+    <!-- Categories List Cards -->
+    <div class="card categories-cards" *ngFor="let category of categories$">
+        <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" [src]="category.strCategoryThumb">
+        </div>
+        <div class="card-content">
+            <p class="card-title activator grey-text text-darken-4">{{category.strCategory}}</p>
+            <a class="card-redirect" (click)="getMealsByCategory(category.strCategory)">Ver recetas <img src="{{imgPath}}Recipes.png"></a>
+        </div>
+        <div class="card-reveal">
+            <p class="card-title"><i class="material-icons right">close</i>{{category.strCategory}}</p>
+            <p class="card-desc"><span>Descripción: </span>{{category.strCategoryDescription}}</p>
+        </div>
+    </div>   
+
+    <!-- Meals by Category Cards -->
+    <a class="back-btn {{backBtnClass}}" [href]="['categories/list']">&#xf060; Volver a la lista de categorías</a>
+    <div class="card meals-cards" *ngFor="let meal of mealsByCategory$">
+        <div class="card-image waves-effect">
+            <img [src]="meal.strMealThumb">
+        </div>
+        <div class="card-content">
+            <a class="card-title meal-card-title activator" (click)="getMealDetails(meal.strMeal)">{{meal.strMeal}}</a>
+            <span class="card-info">Da clic sobre el nombre para ir a la receta</span>
+        </div>       
+    </div>   
+    
+</div>
