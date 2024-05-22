@@ -1,3 +1,11 @@
+🇲🇽 Sitio web que permite consultar una amplia variedad de recetas de varios países del mundo, se pueden filtrar de varias maneras, por el nombre, alfabéticamente, por su categoría o por  el país de origen, además de que cada una incluye a detalle el proceso y los ingredientes necesarios para la preparación.
+
+🇺🇸 Website that allows you to consult a wide variety of recipes from many countries around the world, results can be filtered in many ways, by name, alphabetically, by category or by country of origin, and each of the recipes includes a detailed description of the process and the ingredients needed for preparation.
+
+
+![recipesDB](https://github.com/MauricioBarrueta/recipesDB/assets/60496232/0838cce0-3990-4280-a0c1-3acbed36ca80)
+
+
 # FoodRecipes
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.6.
