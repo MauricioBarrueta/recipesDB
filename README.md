@@ -1,6 +1,8 @@
-🇲🇽 Sitio web que permite consultar una amplia variedad de recetas de varios países del mundo, se pueden filtrar de varias maneras, por el nombre, alfabéticamente, por su categoría o por  el país de origen, además de que cada una incluye a detalle el proceso y los ingredientes necesarios para la preparación.
+🇲🇽 Este sitio web permite consultar una amplia variedad de recetas de varios países del mundo, donde es posible filtrar los resultados ya sea por nombre, orden alfabético, por su categoría o por el país de origen, además de que cada una incluye a detalle el proceso y los ingredientes necesarios para la preparación.
 
-🇺🇸 Website that allows you to consult a wide variety of recipes from many countries around the world, results can be filtered in many ways, by name, alphabetically, by category or by country of origin, and each of the recipes includes a detailed description of the process and the ingredients needed for preparation.
+🇺🇸 This website allows you to consult a wide variety of recipes from various countries around the world, where it's possible to filter the results either by name, alphabetical order, by category or by country of origin, in addition to the fact that each recipe includes in detail the process and the ingredients necessary for its preparation.
+
+🔗 https://recipesdb-7389d.web.app/recipes/random/
 
 
 ![recipesDB](https://github.com/MauricioBarrueta/recipesDB/assets/60496232/0838cce0-3990-4280-a0c1-3acbed36ca80)
