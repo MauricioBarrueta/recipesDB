@@ -1,11 +1,11 @@
-🇲🇽 Este sitio web permite consultar una amplia variedad de recetas de varios países del mundo, donde es posible filtrar los resultados ya sea por nombre, orden alfabético, por su categoría o por el país de origen, además de que cada una incluye a detalle el proceso y los ingredientes necesarios para la preparación.
+🇲🇽 Sitio web desarrollado con Angular y TypeScript, SCSS, Angular Material, Bootstrap y Materialize, publicado con Firebase Hosting y conectado a la API TheMealDB (themealdb.com/api.php).
 
-🇺🇸 This website allows you to consult a wide variety of recipes from various countries around the world, where it's possible to filter the results either by name, alphabetical order, by category or by country of origin, in addition to the fact that each recipe includes in detail the process and the ingredients necessary for its preparation.
+🇺🇸 Website developed with Angular and TypeScript, SCSS, Angular Material, Bootstrap and Materialize, published with Firebase Hosting and connected to TheMealDB API (themealdb.com/api.php).
 
 🔗 https://recipesdb-7389d.web.app/recipes/random/
 
 
-![recipesDB](https://github.com/MauricioBarrueta/recipesDB/assets/60496232/0838cce0-3990-4280-a0c1-3acbed36ca80)
+![recipes](https://github.com/user-attachments/assets/04ba8b81-b843-44fb-a0b4-f67c9d5bc440)
 
 
 # FoodRecipes
