@@ -1,9 +1,8 @@
-🇲🇽 Sitio web desarrollado con Angular y TypeScript, SCSS, Angular Material, Bootstrap y Materialize, publicado con Firebase Hosting y conectado a la API TheMealDB (themealdb.com/api.php).
+🇲🇽 Sitio web desarrollado con Angular y TypeScript, SCSS, Angular Material, Bootstrap y Materialize CSS, publicado con Firebase Hosting y conectado a la API TheMealDB.
 
-🇺🇸 Website developed with Angular and TypeScript, SCSS, Angular Material, Bootstrap and Materialize, published with Firebase Hosting and connected to TheMealDB API (themealdb.com/api.php).
+🇺🇸 Website developed with Angular and TypeScript, using SCSS, Angular Material, Bootstrap, and Materialize CSS, deployed on Firebase Hosting and connected to the TheMealDB API.
 
 🔗 https://recipesdb-7389d.web.app/recipes/random/
-
 
 ![recipes](https://github.com/user-attachments/assets/04ba8b81-b843-44fb-a0b4-f67c9d5bc440)
 
