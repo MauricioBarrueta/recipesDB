@@ -4,7 +4,7 @@ import { MealsComponent } from './meals/meals.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { AreasComponent } from './areas/areas.component';
 import { IngredientsComponent } from './ingredients/ingredients.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { MealComponent } from './meals/meal/meal.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -16,28 +16,22 @@ import { MatCardModule } from '@angular/material/card'
 
 
 
-@NgModule({
-  declarations: [
-    MealsComponent,
-    MealComponent,
-    IngredientsComponent,
-    CategoriesComponent,
-    AreasComponent,
-    HeaderComponent
-  ],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    RouterModule,
-    FormsModule,
-    MatPaginatorModule,
-    MatCardModule
-  ], 
-  exports: [
-    MealsComponent,
-    CategoriesComponent,
-    AreasComponent,
-    IngredientsComponent
-  ]
-})
+@NgModule({ declarations: [
+        MealsComponent,
+        MealComponent,
+        IngredientsComponent,
+        CategoriesComponent,
+        AreasComponent,
+        HeaderComponent
+    ],
+    exports: [
+        MealsComponent,
+        CategoriesComponent,
+        AreasComponent,
+        IngredientsComponent
+    ], imports: [CommonModule,
+        RouterModule,
+        FormsModule,
+        MatPaginatorModule,
+        MatCardModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class PagesModule { }
