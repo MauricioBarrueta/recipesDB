@@ -6,9 +6,10 @@ import { environment } from '../../../environments/environment';
 import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-ingredients',
-  templateUrl: './ingredients.component.html',
-  styleUrl: './ingredients.component.scss'
+    selector: 'app-ingredients',
+    templateUrl: './ingredients.component.html',
+    styleUrl: './ingredients.component.scss',
+    standalone: false
 })
 export class IngredientsComponent implements OnInit, AfterContentChecked {
 

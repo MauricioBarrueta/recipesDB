@@ -6,9 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-areas',
-  templateUrl: './areas.component.html',
-  styleUrl: './areas.component.scss'
+    selector: 'app-areas',
+    templateUrl: './areas.component.html',
+    styleUrl: './areas.component.scss',
+    standalone: false
 })
 export class AreasComponent implements OnInit {
 

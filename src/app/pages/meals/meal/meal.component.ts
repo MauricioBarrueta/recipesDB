@@ -6,9 +6,10 @@ import { Meals } from '../interface/meals';
 import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-meal, app-meals',
-  templateUrl: './meal.component.html',
-  styleUrl: '../meals.component.scss'
+    selector: 'app-meal, app-meals',
+    templateUrl: './meal.component.html',
+    styleUrl: '../meals.component.scss',
+    standalone: false
 })
 export class MealComponent implements OnInit {
 

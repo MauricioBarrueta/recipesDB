@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.scss',
+    standalone: false
 })
 export class HeaderComponent {
   constructor(private readonly router: Router) {}

@@ -6,9 +6,10 @@ import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-meals',
-  templateUrl: './meals.component.html',
-  styleUrl: './meals.component.scss', 
+    selector: 'app-meals',
+    templateUrl: './meals.component.html',
+    styleUrl: './meals.component.scss',
+    standalone: false
 })
 export class MealsComponent implements OnInit {
 

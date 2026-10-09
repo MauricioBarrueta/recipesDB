@@ -6,9 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-categories',
-  templateUrl: './categories.component.html',
-  styleUrl: './categories.component.scss'
+    selector: 'app-categories',
+    templateUrl: './categories.component.html',
+    styleUrl: './categories.component.scss',
+    standalone: false
 })
 export class CategoriesComponent implements OnInit{
 
