@@ -12,26 +12,43 @@ import { HeaderComponent } from '../header/header.component';
 /* Angular Material */
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatCardModule } from '@angular/material/card'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
+import { MatSelectModule } from '@angular/material/select'
+import { MatIconModule } from '@angular/material/icon'
+import { PaginatorComponent } from '../shared/paginator/paginator.component';
 
 
 
 
-@NgModule({ declarations: [
+@NgModule({
+    declarations: [
         MealsComponent,
         MealComponent,
         IngredientsComponent,
         CategoriesComponent,
         AreasComponent,
-        HeaderComponent
+        HeaderComponent,
+        PaginatorComponent
     ],
     exports: [
         MealsComponent,
         CategoriesComponent,
         AreasComponent,
-        IngredientsComponent
-    ], imports: [CommonModule,
+        IngredientsComponent,
+        PaginatorComponent
+    ],
+    imports: [
+        CommonModule,
         RouterModule,
         FormsModule,
         MatPaginatorModule,
-        MatCardModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatIconModule
+    ], 
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+})
 export class PagesModule { }

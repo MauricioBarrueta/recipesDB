@@ -4,6 +4,7 @@ import { catchError, tap, throwError } from 'rxjs';
 import { Meals } from './interface/meals';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
     selector: 'app-meals',
@@ -18,63 +19,110 @@ export class MealsComponent implements OnInit {
   meals$: Meals[] = []
   meal$: Meals[] = []
   ingredients$: string[] = []
-  defaultLetter!: string
+  selectedLetter!: string
 
   dataNotFound: string = ''
   dataStatus: string = ''
-  divStatusClass: string = 'hide'
   title!: string
+
+  pageIndex: number = 0
+  pageSize: number = 10
 
   imgPath: string = `${environment.imagesPath}`
   flagsPath: string = `${environment.flagsPath}`
 
   //* 3. Se recupera el valor del parámetro 'letter' y se asigna a una variable local para su posterior uso  
   ngOnInit(): void {   
-    this.route.queryParams.subscribe(params => { this.defaultLetter = params['l'] });
+    this.route.queryParams.subscribe(params => { this.selectedLetter = params['l'] });
+    this.getMealsByLetter()
+  }
+
+   /* Se obtiene el valor del botón seleccionado procedente del componente Header */
+  getButtonValue(value: string) {
+    this.selectedLetter = value
     this.getMealsByLetter()
   }
 
   /* Se filtran los resultados de acuerdo a la letra del alfabeto seleccionada */
   getMealsByLetter() {
-    this.title = `Lista de recetas que inician con la letra: '${this.defaultLetter}'`
-    window.scrollTo(0, 0)
-    this.mealsService.getMealsByLetter(this.defaultLetter)
+    this.title = `Recetas con la letra ${this.selectedLetter}`
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+
+    this.mealsService.getMealsByLetter(this.selectedLetter)
       .pipe(
-        catchError(error => { return throwError(() => error)}),
-        tap((res: Meals[]) => {           
+        tap((res: Meals[]) => {
           this.meals$ = res
-          this.meals$ === null ? (this.dataNotFound = environment.notFound, this.dataStatus = environment.mealNotFoundText, 
-            this.divStatusClass = 'visible', this.title = '') : (this.dataNotFound = '', this.dataStatus = '', this.divStatusClass = 'hide')     
+
+          if (res === null || res.length === 0) {
+            this.dataNotFound = environment.notFound
+            this.dataStatus = 'No hay recetas disponibles para esta letra'
+            this.title = ''
+          } else {
+            this.dataNotFound = ''
+            this.dataStatus = ''
+          }
         })
       )
-      .subscribe()
-  }
+      .subscribe({
+        error: (error: unknown) => {
+          this.handleMealError(error)
+          this.title = ''
+        }
+      })
+  } 
 
-  /* Se obtiene el valor del botón seleccionado procedente del componente Header */
-  getButtonValue(value: string) {
-    this.defaultLetter = value
-    this.getMealsByLetter()
-  }
-
-  /* Se obtiene el id de la receta y se inyecta la lista de ingredientes y medidas para darles formato */
+  /* Obtiene el ID de la receta y prepara los ingredientes y sus medidas. */
   getSelectedMealId(id: string) {
     this.ingredients$ = []
-    if(this.ingredients$.length === 0) {
-      this.mealsService.getMealDetailsById(id)
+
+    this.mealsService.getMealDetailsById(id)
       .pipe(
-        catchError(error => { return throwError(() => error) }),
         tap((res: Meals[]) => {
           this.meal$ = res
-          this.meal$.forEach((meal: any) => {
-            for (let i = 1; i <= 20; i++) {   
-              if (meal[`strIngredient${i}`]) {
-                this.ingredients$.push(`${meal[`strIngredient${i}`]}: ${meal[`strMeasure${i}`]}`)
-              } else { break }
+
+          this.meal$.forEach((meal: Meals) => {
+            for (let i = 1; i <= 20; i++) {
+              if (meal[`strIngredient${i}` as keyof Meals]) {
+                this.ingredients$.push(
+                  `${meal[`strIngredient${i}` as keyof Meals]}: ${meal[`strMeasure${i}` as keyof Meals]}`
+                )
+              } else {
+                break
+              }
             }
-          });
+          })
         })
       )
-      .subscribe()
-    }    
+      .subscribe({
+        error: (error: unknown) => {
+          this.handleMealError(error)
+        }
+      })
+  }
+
+  private handleMealError(error: unknown): void {
+    console.error('Error al obtener la receta:', error)
+
+    this.meals$ = []
+    this.title = ''
+    this.dataNotFound = environment.notFound
+    this.dataStatus = 'Ocurrió un error al cargar las recetas. Inténtalo de nuevo'
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.meals$.length / this.pageSize)
+  }
+
+  onPageChange(event: PageEvent): void {
+    this.pageIndex = event.pageIndex
+    this.pageSize = event.pageSize
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
   }
 }

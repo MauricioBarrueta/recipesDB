@@ -13,32 +13,40 @@
                 background-color: var(--blackOlive); border: 1px solid var(--timberwolf);
                 span { filter: invert(100%); }
             }
+
             .brand-left {
-                img { padding: 0 1em; }
+                img { 
+                    filter: var(--outline-border-white);
+                    padding: 0 1em; 
+                }
             }
-            .navbar-collapse.show {
-                .nav-item { border: 0 !important; }
-            }
+            
             .navbar-nav {  
                 .nav-item {
-                    border-right: 1px dashed var(--floralWhite);
-                    &:first-child { border-left: 1px dashed var(--floralWhite); }
+                    border-right: 2px dashed var(--timberwolf);
+                    &:first-child { border-left: 2px dashed var(--timberwolf); }
                     &:last-child { border-right: none; }
                     &:hover { 
                         background-color: var(--blackOlive); 
                         img { scale: 1.15; }
                     }
                     a {       
-                        margin-inline: 10px; white-space: nowrap;    
+                        display: flex; align-items: center; justify-content: center; gap: 0.7rem;
+                        margin-inline: 15px; white-space: nowrap;    
                         color: var(--floralWhite) !important; 
-                        text-transform: uppercase; letter-spacing: 1px; font-size: 14px;
-                        img { transition: 0.35s; margin-bottom: 5px; }
+                        text-transform: uppercase; letter-spacing: 1px; font-size: 14px; font-weight: bold;
+                        
+                        img { 
+                            filter: var(--outline-border-white);
+                            transition: all 0.25s; 
+                        }
                     }  
                 }                              
             }
+
             .navbar-brand {
                 display: inline-flex; flex-direction: column;
-                margin: 0; padding: 0; border: 0;  
+                margin: 0; padding: 0; border: 0;                  
                 span {
                     height: 22px;
                     font-size: 9px; letter-spacing: 1px; color: var(--floralWhite);                    
@@ -46,7 +54,7 @@
                 a {
                     img {
                         width: auto; height: 24px; scale: .8;
-                        transition: 0.25s;
+                        transition: 0.25s; 
                         &:hover { position: relative; scale: .9; }
                     }  
                 }                         
@@ -57,52 +65,70 @@
 
 /* Input */
 .name-navigation-navbar {
-    background-color: var(--blackOlive); box-shadow:  0px 5px 5px 0px rgba(37, 36, 34, .75);
-    padding: 0.5rem; padding-bottom: 1.5rem; border-top: 1px dashed var(--floralWhite); 
+    background-color: var(--blackOlive); border-bottom: 10px double var(--flame);
+    padding: 0.5rem; padding-bottom: 1rem; border-top: 2px dashed var(--timberwolf); 
     .row {
         width: 100%;  margin-bottom: 0;        
+        
         .input-field input[type=text]:focus + label {            
             color: var(--timberwolf); border-bottom-color: var(--timberwolf);
         }
         label { 
-            font-size: 12px; text-transform: uppercase; letter-spacing: 1px;
+            font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
             color: var(--timberwolf);
         }        
         input {            
-            font-size: 16px; color: var(--floralWhite);
-            margin-bottom: 0 !important; border-bottom: 2px solid var(--timberwolf);
+            font-size: 18px; text-transform: capitalize; color: #FFF;
+            margin-bottom: 0 !important; padding-left: 0.5rem; 
+            border-bottom: 1px solid var(--timberwolf);
         }
     }
 }
 
 /* Navbar Abecedario */
 footer {
-    width: 100%; position: absolute; bottom: 0 !important; 
-    gap: 8px; padding: 1em; 
-    background-color: var(--eerieBlack); box-shadow:  0px -5px 5px 0px rgba(37, 36, 34, .75);    
+    width: calc(100% + 26px); position: absolute; top: 100%;
+    margin-left: -13px; padding: 1em 0.5rem;
+    box-sizing: border-box;
+    background-color: var(--eerieBlack);
+
     label {
-        width: 100%; color: var(--floralWhite); margin-bottom: 5px;
-        text-align: center; font-size: 16px; letter-spacing: 1px; text-transform: uppercase;
+        width: 100%; color: var(--floralWhite); 
+        text-align: center; font-size: 15px; letter-spacing: 1px; text-transform: uppercase;
     }
     button {
-        display: inline-flex; align-items: center; justify-content: center;
-        font-size: 13px; font-weight: bold;
-        border: 2px solid var(--blackOlive);
-        background-color: var(--floralWhite); color: var(--eerieBlack); 
-        &:hover { background-color: var(--timberwolf); scale: 1.05; }
+        width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
+        font-size: 12px; font-weight: bold;
+        background-color: var(--floralWhite); color: var(--eerieBlack); border: 1px solid var(--timberwolf);
+        &:hover { background-color: var(--timberwolf); }
     }    
 }
 
-/*1024*/
 @media screen and (max-width: 768px) {
+    .navbar-collapse.show {
+        .nav-item {
+            border-inline: 0 !important;
+            border-bottom: 2px dashed var(--timberwolf) !important;
+
+            &:last-child { border-bottom: 0 !important; }
+        }        
+    }
+
     .name-navigation-navbar {
-        label { font-size: 10px !important; }
-        input { padding-top: 10px !important; }
+        .row {
+            label { font-size: 10px !important; }
+            input { 
+                font-size: 16px;
+                padding-top: 10px !important; 
+            }
+        }        
     }
+
     footer {
-        gap: 5px !important;
-        label { font-size: 14px !important; }
+        label { 
+            font-size: 13px !important; 
+            margin-bottom: 5px;
+        }
         button { font-size: 12px !important; }
-    }
-    
+    }    
 }

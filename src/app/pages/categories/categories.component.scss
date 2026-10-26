@@ -6,4 +6,97 @@
 .categories-container {
     min-height: 70vh; position: relative;
     padding: 1em; gap: 15px; text-align: center; text-transform: uppercase;  
+
+    .title-text {
+        img {
+            width: 20px;
+            filter: var(--outline-border); transition: all 0.25s;
+            border-radius: 50%; border: 0; margin: 0 0 3px 8px;
+        }
+    }
+
+    .categories-cards {
+        .card-image { 
+            padding: 0.5rem; cursor: pointer !important;
+            img { transition: all .25s; }
+            &:hover img { scale: 1.025; }
+        }
+
+        .card-content {
+            cursor: default !important;
+            .card-title {
+                font-size: 14px; letter-spacing: normal;
+                padding: 0.5rem; cursor: default !important;
+                border-bottom: 5px double var(--timberwolf);
+                
+                &:hover { letter-spacing: normal !important; }
+            }
+
+            .card-redirect {
+                border-top: 0; cursor: pointer; transition: all .25s;
+                font-size: 13px; font-weight: bold; letter-spacing: normal;
+                &:hover { 
+                    color: rgba(37, 36, 34, 0.75); 
+                    img {
+                        animation: var(--fa-jello-animation); animation-iteration-count: 1;
+                    }
+                }
+                img {
+                    width: 18px;
+                    filter: var(--outline-border);
+                    &:hover { scale: 1; }
+                }
+            }
+        }
+
+        .card-reveal {
+            padding: 0;
+
+            .card-title {
+                padding: 0.5rem; border-bottom: 5px double var(--eerieBlack);
+
+                i {
+                    top: 11px; right: 5px;
+                    font-size: 16px; font-weight: bold;
+                    transition: all .25s !important;
+                    &:hover { font-weight: normal; }
+                }
+            }
+            .card-desc {
+                margin-bottom: 0; padding: 0.5rem;
+                font-size: 13px;
+            }
+        }
+    }
+
+    .subtitle-text {
+        margin-bottom: 0.5rem; margin-top: 0;   
+        transition: all .25s;        
+        &:hover { color: var(--timberwolf); }
+    }
+
+    .cards-container {
+        width: 100%; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 1em;
+        .meals-cards {
+            width: 315px; height: 350px;
+            margin: 0;
+            .card-content {
+                .card-title {
+                    padding: 0.5rem;
+                    font-size: 14px; letter-spacing: normal;
+                    border-bottom: 5px double var(--timberwolf);
+
+                    &:hover {
+                        letter-spacing: normal !important; color: rgba(37, 36, 34, 0.75);
+                    }
+                }
+                .card-info {
+                    padding: 1em 0;
+                    font-size: 10px;
+                }
+            }
+        }
+
+        .list-controls { margin-top: 0.5rem; }
+    }    
 }

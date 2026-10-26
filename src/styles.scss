@@ -36,7 +36,7 @@ $foodRecipes-theme: mat.m2-define-light-theme((
 // that you are using.
 @include mat.all-component-themes($foodRecipes-theme);
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
   margin: 0; padding: 0; box-sizing: border-box;
@@ -50,6 +50,11 @@ $foodRecipes-theme: mat.m2-define-light-theme((
   --blackOlive: #403D39;
   --eerieBlack: #252422;
   --flame: #EB5E28;
+
+  --outline-border: drop-shadow(0px 1px 1px rgba(0, 0, 0, .85));
+  --outline-border-white: drop-shadow(1px 0 0 var(--floralWhite)) drop-shadow(-1px 0 0 var(--floralWhite)) drop-shadow(0 1px 0 var(--floralWhite)) drop-shadow(0 -1px 0 var(--floralWhite));
+  --outline-text-shadow: 2px 0 0 var(--eerieBlack), -2px 0 0 var(--eerieBlack), 0 2px 0 var(--eerieBlack), 0 -2px 0 var(--eerieBlack), 1px 1px 0 var(--eerieBlack), -1px -1px 0 var(--eerieBlack), 1px -1px 0 var(--eerieBlack), -1px 1px 0 var(--eerieBlack), 1px 1px 5px var(--eerieBlack);
+  --fa-jello-animation: fa-jello 1s ease-out infinite;
 }
 
 html, body { height: 100%; position: relative; }
@@ -61,3 +66,5 @@ body {
   background-color: var(--flame);
   margin: 0; overflow-x: hidden;
 }
+
+input:not([type]) { margin: 0 !important; }

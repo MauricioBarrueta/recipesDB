@@ -1,25 +1,86 @@
 <app-header></app-header>
 
-<div class="areas-container">
-    <span class="title-text">{{title}}</span>
+<div class="areas-container">    
+    <span class="title-text">
+        {{ title }}
+        @if (mealsByArea$.length > 0) {
+            <img [src]="flagsPath + '/' + country + '.png'" alt="">
 
-    <!-- Areas List -->
-    <a id="area-link" *ngFor="let flag of countries$" (click)="getMealsByArea(flag)">
-        <img id="flag-img" src="{{flagsPath}}/{{flag}}.png" title="{{flag}}">
-    </a>
+            @if(mealsByArea$.length > recPageSize) {
+                <p class="subtitle-text page-info">Página {{ recIndex + 1 }} de {{ totalRecipePages }}</p>
+            }
+        }
+        @if (filteredAreas.length > 0) {
+            <p class="subtitle-text page-info">Página {{ pageIndex + 1 }} de {{ totalAreaPages }}</p>
+        }
+    </span>
 
-    <!-- Meals By Area List -->
-    <a class="back-btn {{backBtnClass}}" [href]="['regions/list']">&#xf060; Volver a la lista de regiones</a>
-    <div class="card meals-cards" *ngFor="let meal of mealsByArea$">
-        <div class="card-image waves-effect">
-            <img [src]="meal.strMealThumb">
+    <div class="list-controls" [ngClass]="mealsByArea$.length <= 0 ? 'mb-4 d-block' : 'mb-0 d-none'" [style.border-top]="'1px solid rgba(255, 252, 242, 0.5)'">
+        <div class="country-controls">
+            <mat-form-field appearance="outline" style="height: 56px; align-items: center;">
+                <mat-label>Buscar país</mat-label>
+                <input matInput [(ngModel)]="searchCountry" (ngModelChange)="onSearchCountryChange()" placeholder="Ej. Mexico">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Ordenar por</mat-label>
+                <mat-select [(ngModel)]="sortOrder" (selectionChange)="pageIndex = 0">
+                    <mat-option value="asc">A - Z</mat-option>
+                    <mat-option value="desc">Z - A</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
-        <div class="card-content">
-            <a class="card-title meal-card-title activator" (click)="getMealDetails(meal.strMeal)">{{meal.strMeal}}</a>
-            <div class="card-subcontent">
-                <p class="area-flag">Región: <img src="{{flagsPath}}/{{country}}.png" title="{{country}}"></p>
-                <span class="card-info">Da clic sobre el nombre para ir a la receta</span>
-            </div>           
-        </div>
+    </div>            
+
+    <!-- Countries List --> 
+    @for (flag of filteredAreas | slice:(pageIndex * pageSize):((pageIndex + 1) * pageSize); track flag) {
+        <a id="area-link" (click)="getMealsByArea(flag.strCountry)" (mouseenter)="hoveredCountry = flag.strCountry" (mouseleave)="hoveredCountry = null">
+            <img id="flag-img" [ngClass]="flag.strCountry === 'Israel' && hoveredCountry === 'Israel' ? 'hovered' : ''"
+                [src]="flagsPath + '/' + (flag.strCountry === 'Israel' && hoveredCountry === 'Israel' ? 'IsraelHover' : flag.strCountry) + '.png'">
+            <svg class="country-name" viewBox="0 0 120 120">
+                <defs>
+                    <path [attr.id]="'circle-' + flag.strCountry" d="M 5,60 A 55,55 0 0,1 115,60" />
+                </defs>
+                <text>
+                    <textPath [attr.href]="'#circle-' + flag.strCountry" startOffset="50%" text-anchor="middle">{{ flag.strCountry }}</textPath>
+                </text>
+            </svg>            
+        </a>
+    }
+
+    <div class="list-controls border-top-0 mt-2" [ngClass]="mealsByArea$.length <= 0 ? 'mb-0 d-block' : 'mb-0 d-none'">
+        <app-paginator [length]="filteredAreas.length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="[15, 30, 50, 100]" (pageChange)="onAreaPageChange($event)"></app-paginator>
+    </div>
+
+    <div class="meals-by-area">
+        <a class="back-btn subtitle-text" [ngClass]="mealsByArea$.length > 0 ? 'd-block' : 'd-none'" routerLink="/regions/list" (mouseenter)="mouseEnter = true" (mouseleave)="mouseEnter = false">
+            <i class="fa-solid fa-angle-left me-3" [ngClass]="mouseEnter ? 'fa-jello' : ''"></i>Volver a la lista de países
+        </a>
+
+        @for (meal of mealsByArea$ | slice:(recIndex * recPageSize):((recIndex + 1) * recPageSize); track meal.idMeal) {
+            <div class="card meals-cards">
+                <div class="card-image waves-effect">
+                    <img [src]="meal.strMealThumb">
+                </div>
+    
+                <div class="card-content">
+                    <a class="card-title meal-card-title activator" (click)="getMealDetails(meal.strMeal)">{{meal.strMeal}}</a>
+    
+                    <div class="card-subcontent">
+                        <p class="area-flag">
+                            <span>Origen:</span>{{ country.toUpperCase() }}<img src="{{ flagsPath }}/{{ country }}.png" title="{{ country }}">
+                        </p>                        
+                        <span class="card-info">Haz clic en el nombre para ver la receta</span>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if(mealsByArea$.length > recPageSize) {
+            <div class="list-controls border-top-0">
+                <app-paginator [length]="mealsByArea$.length" [pageIndex]="recIndex" [pageSize]="recPageSize" [pageSizeOptions]="[10, 20, 30, 50]" (pageChange)="onRecipePageChange($event)"></app-paginator>            
+            </div>            
+        }
     </div>
 </div>

@@ -17,6 +17,8 @@ export class HeaderComponent {
 
   imgPath: string = `${environment.imagesPath}`
 
+  hoveredLetter: string | null = null
+
   //* 2. Se asigna y envía el parámetro a la ruta mediante queryParams (pasar a MealsComponent para el paso 3)
   @Output() clickedButton = new EventEmitter<string>()
   setButtonValue(value: string) {

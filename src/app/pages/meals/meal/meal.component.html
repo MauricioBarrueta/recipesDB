@@ -2,43 +2,79 @@
 
 <div class="meals-list">
 
-  <!-- Not Found Alert -->
-    <div class="data-not-found {{divStatusClass}}">
-        <span [textContent]="dataStatus"></span>
-        <img src="{{dataNotFound}}" alt="">
+    <!-- Error Message -->    
+    <div class="data-not-found" [ngClass]="dataStatus ? 'd-block' : 'd-none'">
+        <span><i class="fa-solid fa-triangle-exclamation me-3"></i>{{ dataStatus }}</span>
+        <img [src]="dataNotFound" alt="">
     </div>
     
-    <span class="title-text">{{title}}
-      <span class="subtitle-text" *ngIf="subtitle.length > 1">{{subtitle}}</span>
-    </span>
-    
-    <!-- Meals Card -->
-    <div class="flip-card" *ngFor="let meal of meal$">
-      <div class="flip-card-inner" >
-          <div class="flip-card-front" >
-            <img [src]="meal.strMealThumb">
-            <div class="flip-card-content">
-                <span class="card-title">{{meal.strMeal}}</span>
-                <div class="card-subcontent">
-                    <p class="meal-area"><span>Receta de origen: </span>{{meal.strArea}}<img class="area-img" src="{{flagsPath}}/{{meal.strArea}}.png" title="{{meal.strArea}}"></p>
-                    <p class="meal-category"><span>Pertenece a la categoría: </span>{{meal.strCategory}}</p>
+    @if(title) {
+        <span class="title-text">
+            {{ title }}
+            @if (subtitle.length > 1) {
+                <span class="subtitle-text">{{ subtitle }}</span>
+            }
+            @if (countryName) {
+                <a class="back-btn subtitle-text" [routerLink]="['/regions/list-by-region']" [queryParams]="{ r: countryName }" (mouseenter)="mouseEnter = true" (mouseleave)="mouseEnter = false">
+                    <i class="fa-solid fa-angle-left me-3" [ngClass]="mouseEnter ? 'fa-jello' : ''"></i>
+                    Volver a las recetas de {{ countryName }}<img class="ms-3" src="{{ flagsPath }}/{{ countryName }}.png" alt="">
+                </a>
+            }
+        </span>
+    }    
+
+    <div class="card-container">
+        @for (meal of meal$; track meal) {
+            <div class="flip-card">
+                <div class="flip-card-inner" >
+                    <div class="flip-card-front" >
+                        <img [src]="meal.strMealThumb">
+                        <div class="flip-card-content">
+                            <span class="card-title">{{ meal.strMeal }}</span>
+                        
+                            <div class="card-subcontent">
+                                <p class="meal-area">
+                                    <span>Origen:</span>{{ meal.strCountry }}<img class="area-img" src="{{ flagsPath }}/{{ meal.strCountry }}.png" title="{{ meal.strCountry }}">
+                                </p>
+                        
+                                <p class="meal-category">
+                                    <span>Categoría:</span>{{ meal.strCategory }}<img class="cat-img" src="{{ imgPath }}/categories/{{ meal.strCategory.toLowerCase() }}.png">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card-back">
+                        <span class="card-title">{{ meal.strMeal }}</span>
+                        <p class="meal-instructions">
+                            <span><img src="{{ imgPath }}/Instructions.png">Preparación:</span>
+                            {{meal.strInstructions}}
+                        </p>
+                
+                        <div class="ingredients-container">
+                            <span class="ingredients-title">
+                                <img src="{{ imgPath }}/Measures.png">Ingredientes y medidas:
+                            </span>
+                            @for (ingredients of ingredients$; track ingredients) {
+                                <p>• {{ ingredients }}</p>
+                            }
+                
+                            <p class="meal-yt-link">
+                                Ver tutorial:<a [href]="meal.strYoutube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                            </p>
+                
+                            <div class="meal-links">
+                                <a (click)="getCategoryDetails(meal.strCategory)" [title]="meal.strCategory">
+                                    Ver categoría:<img src="{{ imgPath }}/categories/{{ meal.strCategory.toLowerCase() }}.png" alt="">
+                                </a>
+                                <a (click)="getAreaDetails(meal.strCountry)" [title]="meal.strCountry">
+                                    Ver región:<img src="{{ flagsPath }}/{{meal.strCountry}}.png">
+                                </a>    
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-          </div>
-          <div class="flip-card-back">
-            <span class="card-title">{{meal.strMeal}}</span>
-            <p class="meal-instructions"><span><img src="{{imgPath}}Instructions.png"> Preparación: </span>{{meal.strInstructions}}</p>
-            <div class="ingredients-container">
-                <span class="ingredients-title"><img src="{{imgPath}}Measures.png"> Ingredientes y medidas:</span>
-                <p *ngFor="let ingredients of ingredients$">• {{ingredients}}</p>
-                <p class="meal-yt-link">Ir al tutorial: <a [href]="meal.strYoutube" target="_blank"><i class="fa-brands fa-youtube"></i></a></p>
-                <div class="meal-links">
-                  <a (click)="getCategoryDetails(meal.strCategory)">Ir a la categoría: <img src="{{imgPath}}Categories.png" alt=""></a>
-                  <a (click)="getAreaDetails(meal.strArea)">Ir a la región: <img src="{{flagsPath}}/{{meal.strArea}}.png"></a>
-              </div> 
-            </div>
-          </div>
-      </div>
-    </div> 
-
+        }
+    </div>    
 </div>

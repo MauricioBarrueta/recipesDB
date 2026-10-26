@@ -2,33 +2,61 @@
 
 <div class="categories-container">
 
-    <span class="title-text">{{title}}</span>
+    <span class="title-text">
+        {{ title }}
+        @if(mealsByCategory$.length > 0) {
+            <img src="{{ imgPath }}/categories/{{ category.toLowerCase() }}.png" alt="">
+        }
+        @if (mealsByCategory$.length > pageSize) {
+            <span class="subtitle-text page-info">Página {{ pageIndex + 1 }} de {{ totalPages }}</span>
+        }
+    </span>
 
     <!-- Categories List Cards -->
-    <div class="card categories-cards" *ngFor="let category of categories$">
-        <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" [src]="category.strCategoryThumb">
-        </div>
-        <div class="card-content">
-            <p class="card-title activator grey-text text-darken-4">{{category.strCategory}}</p>
-            <a class="card-redirect" (click)="getMealsByCategory(category.strCategory)">Ver recetas <img src="{{imgPath}}Recipes.png"></a>
-        </div>
-        <div class="card-reveal">
-            <p class="card-title"><i class="material-icons right">close</i>{{category.strCategory}}</p>
-            <p class="card-desc"><span>Descripción: </span>{{category.strCategoryDescription}}</p>
-        </div>
-    </div>   
+    @for (category of categories$; track category) {
+        <div class="card categories-cards">
+            <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" [src]="category.strCategoryThumb">
+            </div>
 
-    <!-- Meals by Category Cards -->
-    <a class="back-btn {{backBtnClass}}" [href]="['categories/list']">&#xf060; Volver a la lista de categorías</a>
-    <div class="card meals-cards" *ngFor="let meal of mealsByCategory$">
-        <div class="card-image waves-effect">
-            <img [src]="meal.strMealThumb">
+            <div class="card-content">
+                <p class="card-title">{{ category.strCategory }}</p>
+
+                <a class="card-redirect" (click)="getMealsByCategory(category.strCategory)">
+                    Ver recetas<img class="ms-2" src="{{ imgPath }}/Recipes.png">
+                </a>
+            </div>
+
+            <div class="card-reveal">
+                <p class="card-title"><i class="material-icons right">close</i>{{ category.strCategory }}</p>
+                <p class="card-desc"><span>Descripción: </span>{{ category.strCategoryDescription }}</p>
+            </div>
         </div>
-        <div class="card-content">
-            <a class="card-title meal-card-title activator" (click)="getMealDetails(meal.strMeal)">{{meal.strMeal}}</a>
-            <span class="card-info">Da clic sobre el nombre para ir a la receta</span>
-        </div>       
-    </div>   
-    
+    }
+
+    <!-- Meals By Category -->
+    <a class="back-btn subtitle-text" [ngClass]="mealsByCategory$.length > 0 ? 'd-block' : 'd-none'" routerLink="/categories/list" (mouseenter)="mouseEnter = true" (mouseleave)="mouseEnter = false">
+       <i class="fa-solid fa-angle-left me-3" [ngClass]="mouseEnter ? 'fa-jello' : ''"></i>Volver a la lista de categorías
+    </a>
+
+    <div class="cards-container">
+        @for (meal of mealsByCategory$ | slice:(pageIndex * pageSize):((pageIndex + 1) * pageSize); track meal) {
+            <div class="card meals-cards">
+                <div class="card-image waves-effect">
+                    <img [src]="meal.strMealThumb">
+                </div>
+        
+                <div class="card-content">
+                    <a class="card-title meal-card-title activator" (click)="getMealDetails(meal.strMeal)">{{ meal.strMeal }}</a>
+                    <span class="card-info">Haz clic en el nombre para ver la receta</span>
+                </div>
+            </div>        
+        }
+
+        @if(mealsByCategory$.length > pageSize) {
+            <div class="list-controls border-top-0">
+                <app-paginator [length]="mealsByCategory$.length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="[10, 20, 30, 50]" (pageChange)="onPageChange($event)"></app-paginator>            
+            </div>
+        }
+    </div>    
 </div>

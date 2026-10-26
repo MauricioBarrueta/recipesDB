@@ -1,36 +1,51 @@
 <!-- Navbar -->
-<div class="sections-navigation-navbar"> 
+<div class="sections-navigation-navbar">
     <nav class="navbar navbar-expand-xl bg-body-tertiary">
-        <div class="container-fluid">          
+        <div class="container-fluid">
             <div class="navbar-brand brand-left">
-                <img src="{{imgPath}}icon.png" title="Ícono">
-            </div> 
+                <img src="{{ imgPath }}/icon.png" title="Ícono">
+            </div>
+
             <div class="navbar-brand">
                 <span>Powered by:</span>
                 <a href="https://www.themealdb.com/api.php" target="_blank">
-                    <img src="{{imgPath}}TheMealDB.png" title="Ir al sitio web de la API">
+                    <img src="{{ imgPath }}/TheMealDB.png" title="Ir al sitio web de la API">
                 </a>
-            </div>         
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-            </button>           
+            </button>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
-                        <a class="nav-link" aria-current="page" [href]="['/']"><img src="{{imgPath}}Recipes.png"> Lista de recetas</a>
-                    </li>                   
-                    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
-                        <a class="nav-link" [href]="['categories/list']"><img src="{{imgPath}}Categories.png"> Recetas por categoría</a>
+                    <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                        <a class="nav-link" aria-current="page" routerLink="/">
+                            <img [src]="imgPath + '/Recipes.png'" alt="">Recetas</a>
                     </li>
-                    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
-                        <a class="nav-link" [href]="['regions/list']"><img src="{{imgPath}}Regions.png"> Recetas por región</a>
+
+                    <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                        <a class="nav-link" routerLink="/categories/list">
+                            <img [src]="imgPath + '/Categories.png'" alt="">
+                            Categorías
+                        </a>
                     </li>
-                    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
-                        <a class="nav-link" [href]="['ingredients/list']"><img src="{{imgPath}}Ingredients.png"> Lista de ingredientes</a>
-                    </li>                                      
+
+                    <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                        <a class="nav-link" routerLink="/regions/list">
+                            <img [src]="imgPath + '/Regions.png'" alt="">
+                            Regiones
+                        </a>
+                    </li>
+
+                    <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                        <a class="nav-link" routerLink="/ingredients/list">
+                            <img [src]="imgPath + '/Ingredients.png'" alt="">
+                            Ingredientes
+                        </a>
+                    </li>
                 </ul>
-            </div>                       
+            </div>
         </div>
     </nav>
 </div>
@@ -40,17 +55,23 @@
     <div class="row">
         <div class="input-field col s12">
             <form action="" (submit)="setInputValue(inputNameValue)">
-                <input id="mealName" type="text" class="validate" name="mealName" [(ngModel)]="inputNameValue" autocomplete="off">
-                <label for="mealName">&#xf002; &nbsp; Ingresa el nombre del platillo y presiona la tecla 'Enter ↵' para iniciar la búsqueda:</label>
-            </form>            
+                <input id="mealName" type="text" class="validate" name="mealName" [(ngModel)]="inputNameValue"
+                    autocomplete="off">
+                <label for="mealName">
+                    <i class="fa-solid fa-magnifying-glass me-2"></i>Ingresa el nombre de la receta y presiona Enter ↵ para buscar
+                </label>
+            </form>
         </div>
     </div>
 </div>
 
 <!-- Navbar Abecedario -->
-<footer>
-    <label for="alphabet-button">Filtrar recetas por orden alfabético:</label>
-    <button class="btn-floating waves-effect waves-light btn" name="alphabet-button" *ngFor="let letter of letters" value="{{letter}}"
-        (click)="setButtonValue(letter)">{{letter}}
-    </button>
+<footer class="gap-2 gap-md-3">
+    <label for="alphabet-button">Filtrar recetas por letra:</label>
+
+    @for (letter of letters; track letter) {
+        <button class="btn-floating waves-effect waves-light btn" [ngClass]="hoveredLetter === letter ? 'fa-jello' : ''" name="alphabet-button" [value]="letter" (click)="setButtonValue(letter)" (mouseenter)="hoveredLetter = letter" (mouseleave)="hoveredLetter = null">
+            {{ letter }}
+        </button>
+    }
 </footer>

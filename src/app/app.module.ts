@@ -5,21 +5,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PagesModule } from './pages/pages.module'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { MatPaginatorModule } from '@angular/material/paginator'
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 
 @NgModule({ declarations: [
-        AppComponent
+        AppComponent,
     ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
+    bootstrap: [AppComponent], 
+    imports: [
+        BrowserModule,
         AppRoutingModule,
-        PagesModule,
-        MatPaginatorModule,
-        BrowserModule], providers: [
+        PagesModule,        
+        BrowserModule
+    ],
+    providers: [
         provideClientHydration(),
-        provideAnimations() // Angular Material Animations
-        ,
+        provideAnimations(), // Angular Material Animations
         provideHttpClient(withInterceptorsFromDi())
     ] })
 export class AppModule { }

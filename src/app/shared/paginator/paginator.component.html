@@ -1,0 +1,5 @@
+<div class="list-controls">
+    <mat-paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+        (page)="pageChange.emit($event)" showFirstLastButtons>
+    </mat-paginator>
+</div>

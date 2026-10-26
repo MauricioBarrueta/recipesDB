@@ -2,43 +2,85 @@
 
 <div class="meals-list">
 
-  <!-- Not Found Alert -->
-    <div class="data-not-found {{divStatusClass}}">
-        <span [textContent]="dataStatus"></span>
-        <img src="{{dataNotFound}}" alt="">
+    <!-- Error Message -->    
+    <div class="data-not-found pb-3" [ngClass]="dataStatus ? 'd-block' : 'd-none'">
+        <span><i class="fa-solid fa-triangle-exclamation me-3"></i>{{ dataStatus }}</span>
+        <img [src]="dataNotFound" alt="">
     </div>
-    
-    <span class="title-text">{{title}}</span>
-    
-    <!-- Meals Cards -->
-    <div class="flip-card" *ngFor="let meal of meals$">
-      <div class="flip-card-inner" (mouseenter)="getSelectedMealId(meal.idMeal)">
-          <div class="flip-card-front">
-            <img [src]="meal.strMealThumb">
-            <div class="flip-card-content">
-                <span class="card-title">{{meal.strMeal}}</span>
-                <div class="card-subcontent">
-                  <p class="meal-area"><span>Receta de origen: </span>{{meal.strArea}}<img class="area-img" src="{{flagsPath}}/{{meal.strArea}}.png" title="{{meal.strArea}}"></p>
-                  <p class="meal-category"><span>Pertenece a la categoría: </span>{{meal.strCategory}}</p>
-              </div>
-            </div>
-          </div>
-          <div class="flip-card-back">
-            <span class="card-title">{{meal.strMeal}}</span>
-            <p class="meal-instructions"><span><img src="{{imgPath}}Instructions.png"> Preparación: </span>{{meal.strInstructions}}</p>
-            <div class="ingredients-container">
-                <span class="ingredients-title"><img src="{{imgPath}}Measures.png"> Ingredientes y medidas:</span>
-                <p *ngFor="let ingredients of ingredients$">• {{ingredients}}</p>
-                <p class="meal-yt-link">Ir al tutorial: <a [href]="meal.strYoutube" target="_blank"><i class="fa-brands fa-youtube"></i></a></p>
-                <div class="meal-links">
-                  <a (click)="child.getCategoryDetails(meal.strCategory)">Ir a la categoría: <img src="{{imgPath}}Categories.png" alt=""></a>
-                  <a (click)="child.getAreaDetails(meal.strArea)">Ir a la región: <img src="{{flagsPath}}/{{meal.strArea}}.png"></a>
-              </div> 
-            </div>
-          </div>
-      </div>
-    </div> 
+
+    @if (title) {
+        <span class="title-text">
+            {{ title }}
+            @if (meals$.length > pageSize) {
+                <span class="subtitle-text page-info">Página {{ pageIndex + 1 }} de {{ totalPages }}</span>
+            }
+        </span>
+    }
+
+    @if (!dataStatus) {
+        <div class="card-container">
+            @for (meal of meals$ | slice:(pageIndex * pageSize):((pageIndex + 1) * pageSize); track meal) {
+                <div class="flip-card">
+                    <div class="flip-card-inner" (mouseenter)="getSelectedMealId(meal.idMeal)">
+                        <div class="flip-card-front">
+                            <img [src]="meal.strMealThumb">
+                    
+                            <div class="flip-card-content">
+                                <span class="card-title">{{ meal.strMeal }}</span>
+                                <div class="card-subcontent">
+                                    <p class="meal-area">
+                                        <span>Origen:</span>{{ meal.strCountry }}<img class="area-img" src="{{ flagsPath }}/{{ meal.strCountry }}.png" title="{{ meal.strCountry }}">
+                                    </p>
+
+                                    <p class="meal-category">
+                                        <span>Categoría:</span>{{ meal.strCategory }}<img class="cat-img" src="{{ imgPath }}/categories/{{ meal.strCategory.toLowerCase() }}.png">
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flip-card-back">
+                            <span class="card-title">{{ meal.strMeal }}</span>
+
+                            <p class="meal-instructions">
+                                <span><img src="{{ imgPath }}/Instructions.png">Preparación:</span>
+                                {{meal.strInstructions}}
+                            </p>
+          
+                            <div class="ingredients-container">
+                                <span class="ingredients-title">
+                                    <img src="{{ imgPath }}/Measures.png">Ingredientes y medidas:
+                                </span>
+                                @for (ingredients of ingredients$; track ingredients) {
+                                    <p>• {{ ingredients }}</p>
+                                }
+                
+                                <p class="meal-yt-link">
+                                    Ver tutorial:<a [href]="meal.strYoutube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                                </p>
+                
+                                <div class="meal-links">
+                                    <a (click)="child.getCategoryDetails(meal.strCategory)" [title]="meal.strCategory">
+                                        Ver categoría:<img src="{{ imgPath }}/categories/{{ meal.strCategory.toLowerCase() }}.png" alt="">
+                                    </a>
+                                    <a (click)="child.getAreaDetails(meal.strCountry)" [title]="meal.strCountry">
+                                        Ver región:<img src="{{ flagsPath }}/{{meal.strCountry}}.png">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }       
+
+    @if (meals$.length > pageSize) {
+        <div class="list-controls border-top-0">
+            <app-paginator [length]="meals$.length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="[10, 20, 30, 50]" (pageChange)="onPageChange($event)"></app-paginator>
+        </div>
+    }    
 </div>
 
 <!-- Para acceder a las funciones del componente hijo 'MealComponent' -->
-<app-meal #child style="display: none;"></app-meal>
+<app-meal #child class="d-none"></app-meal>
