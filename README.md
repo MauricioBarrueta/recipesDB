@@ -4,7 +4,7 @@
 
 🔗 https://recipesdb-7389d.web.app/recipes/random/
 
-![recipes](https://github.com/user-attachments/assets/04ba8b81-b843-44fb-a0b4-f67c9d5bc440)
+<img width="1366" height="635" alt="recipes" src="https://github.com/user-attachments/assets/33ecfabd-7aa4-47e5-9c7a-c668e5077eaf" />
 
 
 # FoodRecipes
